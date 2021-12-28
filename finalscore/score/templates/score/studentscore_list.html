@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Student Details</h1>
+
+
+{% for i in studentscore_list %}
+<h3><a href='/score/result/{{i.id}}'>{{i.name}}</a></h3>
+
+
+
+
+{% endfor %}
+{% endblock %}

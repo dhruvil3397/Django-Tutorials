@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang = "eng">
+<head>
+
+    <meta charset ="UTF-8">
+    <meta name = "viewpoint" content = "width=device-width,initial-scale = 1.0">
+    
+    <title>Text Analyser</title>
+   
+</head>
+<body>
+    <h1><center>Welcome to the Analyser.Enter your text below</ce   nter></h1>
+    
+    <form action ='/analyze/' method = "post">
+    {%csrf_token%}
+        <textarea name = 'text' style="margin: 0px; width: 1476px; height: 104px;"></textarea><br>
+        <input  type = "checkbox" name = "removepunc">Remove Punctuations<br>
+        <input  type = "checkbox" name = "Uppercase">Uppercase<br>
+        <input  type = "checkbox" name = "Remove_newlines">Remove new lines<br>
+        <input  type = "checkbox" name = "Remove_extraspace">Remove extra space<br>
+        <input  type = "checkbox" name = "charcount">Character count<br>
+        <center><button type = "submit">Analyse text</button></center>
+    </form>
+</body>
+</html>

@@ -1,0 +1,92 @@
+{% extends 'base.html'%}
+{% block title %}Home{% endblock %}
+{% block homeactive %} active {% endblock homeactive %}
+
+{% block css %} 
+<style>
+body {
+    background-color :#e5cbcb;
+}
+</style>
+{% endblock %}
+
+{% block body %}   
+ 
+    <header style="background-image: url('/static/home.jpg'); background-size :cover " class="header-with-bg" >
+        
+        <div class="container">
+            <div class="header-content text-center d-flex flex-column justify-content-center">
+                <h6 class=" text-white text-tracking-wider pb-1 mb-3">WELCOME TO DS</h6>
+                <h1 class="font-weight-normal text-dark" style = "height: 530px">Give yourself the best chance of success with <br> DS</h1>
+                
+            </div>
+        </div>
+      </header> 
+
+    <main class="mb-5 pb-5" >
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 offset-md-1">
+                        
+                     
+                        <section class="row py-5 my-5">
+                            
+                            <div class="col-md-6 offset-md-1">
+                                <div class="media pb-4 border-bottom">
+                                    <div class="media-body">
+                                        <p class="small text-gray mb-0">Rosie Arnold</p>
+                                        <h5 class="mt-0 mb-1">Friday’s spring collection is out. Now you can read my report about it.</h5>
+                                        <p class="mb-1 small"><a href="#" class="text-info">News</a></p>
+                                        <p class="mb-0 small"><a href="#" class="text-gray">Read Story</a></p>
+                                    </div>
+                                    <img src="assets/images/landing-3.jpg" class="ml-3" alt="Friday’s spring collection is out. Now you can read my report about it.">
+                                </div>
+                                <div class="media py-4 border-bottom">
+                                    <div class="media-body">
+                                        <p class="small text-gray mb-0">Eric McLaughlin</p>
+                                        <h5 class="mt-0 mb-1">Mary Steel is back in the fashion business—and she talked about her fresh start.</h5>
+                                        <p class="mb-1 small"><a href="#" class="text-danger">Satrtups</a></p>
+                                        <p class="mb-0 small"><a href="#" class="text-gray">Read Story</a></p>
+                                    </div>
+                                    <img src="assets/images/landing-4.jpg" class="ml-3" alt="Friday’s spring collection is out. Now you can read my report about it.">
+                                </div>
+                                <div class="media py-4">
+                                    <div class="media-body">
+                                        <p class="small text-gray mb-0">Irene Powers</p>
+                                        <h5 class="mt-0 mb-1">Don’t want to miss the KEDZ fashion show in New York? Get all the facts here.</h5>
+                                        <p class="mb-1 small"><a href="#" class="text-info">Design</a></p>
+                                        <p class="mb-0 small"><a href="#" class="text-gray">Read Story</a></p>
+                                    </div>
+                                    <img src="assets/images/landing-5.jpg" class="ml-3" alt="Friday’s spring collection is out. Now you can read my report about it.">
+                                </div>
+                            </div>
+                        </section>
+                       
+                    </div>
+                </div>
+            </div>
+
+        </main>
+        
+        <footer class="up-common-footer" >
+            
+            <div class="container" >
+                <nav class="nav justify-content-center flex-column flex-sm-row text-center">
+                    <a href="/blog/" class="nav-link">Blog</a>
+                  
+                    <a href="/home/about/" class="nav-link">About Us</a>
+                    <a href="/home/contact/" class="nav-link">Contact Us</a>
+                </nav>
+               
+            </div>
+            </header>
+        </footer>
+    <script src="../src/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../src/vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../src/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,320 @@
+{% extends 'base.html'%}
+
+
+{% block title %}Welcome !!!{% endblock %}
+
+
+
+{% block css %}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+{% endblock %}
+
+{% block body %}
+
+<div id = "back" class="back">
+<a href='/myapp/showback/' >Back</a>
+<p id="category"></p>
+<p id="type"></p>
+<p id="brand"></p>
+<p id="model"></p>
+<p id="color"></p>
+<p id="price"></p>
+<p id="description"></p>
+</div>
+
+
+<div class = "table" id = "table">
+
+<a href='/myapp/showform/' ><button type="submit">Add</button></a>
+
+
+<h2 >All Products Table</h2>
+
+{% csrf_token %}
+<table >
+    <tr>
+        <th>Sr No.</th>
+        <th>Products</th>
+        <th>Edit</th>
+        <th>View</th>
+        <th>Delete</th>
+    </tr>
+    {% for i in product %}
+    <tr id="entry_{{forloop.counter}}">
+        <td>{{i.id}}</td>
+        <td>{{i.category}}</td>
+        <td><button onclick="myFunctionedit({{i.id}}, {{forloop.counter}})" class="editbtn">Edit</button></td>
+        <td><button  onclick="myFunctionview({{i.id}}, {{forloop.counter}})" class="viewbtn">View</button></td>
+        <td><button onclick="myFunction({{i.id}}, {{forloop.counter}})" class="deletebtn">Delete</button></td>
+
+    </tr>
+    {% endfor %}
+</table>
+
+</div>
+
+{% comment %} For edit the form {% endcomment %}
+{% load static %}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
+<div class="container my-3" id = "edit">
+
+  <h3>Add Product</h3>
+ 
+  
+  <form >
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="name">Category</label>
+      <input type="text" id="id2" name="id2" class = "form-control type id2" value = "None" placeholder="Enter Your category" value="None">
+    </div>
+
+    <div class="form-group">
+      <label for="name">Type</label>
+      <input type="text"  id="id3" name="id3" class = "form-control type id3"  placeholder="Enter Your type" value="None">
+    </div>
+
+     <div class="form-group">
+      <label for="name">Brand</label>
+      <input type="text"id="id4" name="id4" class = "form-control type id4"  placeholder="Enter Your brand" value="None">
+    </div>
+
+     <div class="form-group">
+      <label for="name">Model</label>
+      <input type="text"   id="id5" name="id5" class = "form-control type id5" placeholder="Enter Your model" value="None">
+    </div>
+
+     <div class="form-group">
+      <label for="name">Color</label>
+      <input type="text"  id="id6" name="id6" class = "form-control type id6"  placeholder="Enter Your color" value="None">
+    </div>
+
+     <div class="form-group">
+      <label for="name">Price</label>
+      <input type="text"  id="id7" name="id7" class = "form-control type id7" placeholder="Enter Your price" value="None">
+    </div>
+     <input type="hidden" id="id1" name="id1" class = "id1" value="None">
+
+     
+
+    <div class="form-group ">
+      <label for="message">Description</label>
+      <textarea id="id8" name="id8" value = "None" class="form-control  id8" rows="3" >
+     
+      </textarea>
+  <button  onclick ="mybutton()" class="btn btn-success">Submit</button>
+  </form>
+ 
+</div>
+
+<script>
+    $(function () {
+        CKEDITOR.replace('id8', {
+            toolbar: 'Basic'
+        });
+    });
+</script>
+
+{% endblock %}
+
+{% block JS %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+// Hide edit and back class :
+$(edit).hide();
+$(back).hide();
+function myFunction(e, f){
+    retVal = confirm('Are you sure for deleting this contact');
+    if( retVal == true ) {
+                   console.log("User wants to continue!");
+                   $.ajax({
+                    type: 'GET',
+                    url: "{% url 'delete_data' %}",
+                    data: {"id" : e},
+                    success: function (response) {
+                        //$("#friend-form").trigger('reset'); 
+                        //$("#id_Type").focus();
+                        //alert("Record Inserted Successfully !!!");
+                        //alert("Succesfully. 1");
+                        if(response["valid"])
+                        {
+                            console.log("deleted");
+                            $('#entry_'+f).remove();
+                            return true;   
+                        }
+                    },
+                    error: function (response) 
+                    {
+                    
+                    }
+                }); 
+                  return true;
+               } else {
+                  console.log("User does not want to continue!");
+                  return false;
+               }
+}
+
+// For View :
+function myFunctionview(a, b){
+    
+                   console.log("User wants to continue!");
+                   $.ajax({
+                    type: 'GET',
+                    url: "{% url 'view_data' %}",
+                    data: {"id" : a},
+                    success: function (response) {
+                        //$("#friend-form").trigger('reset'); 
+                        //$("#id_Type").focus();
+                        //alert("Record Inserted Successfully !!!");
+                        //alert("Succesfully. 1");
+                        if(response["valid"])
+                        {   //document.location = "/myapp/viewdata/";
+
+                            console.log(response["product"]);
+                            document.getElementById("category").innerHTML = "Category :"+ response["category"];
+                            document.getElementById("type").innerHTML = "Type :"+ response["type"];
+                            document.getElementById("brand").innerHTML = "Brand :"+ response["brand"];
+                            document.getElementById("model").innerHTML = "Model :"+ response["model"];
+                            document.getElementById("price").innerHTML = "Price :"+ response["price"];
+                            document.getElementById("color").innerHTML = "Color :"+ response["color"];
+                            document.getElementById("description").innerHTML = "Description :"+ response["description"];
+                            // For hide the table
+                          
+                            $(table).hide();
+                            $(edit).hide();
+                            $(back).show();
+
+
+                            return true;   
+                        }
+                    },
+                    error: function (response) 
+                    {
+                    
+                    }
+                }); 
+                  return true;
+}
+
+// For Edit :
+function myFunctionedit(c, d){
+    
+    
+                   console.log("User wants to edit!");
+                   $.ajax({
+                    type: 'GET',
+                    url: "{% url 'edit_data' %}",
+                    data: {"id" : c},
+                    success: function (response) {
+                        //$("#friend-form").trigger('reset'); 
+                        //$("#id_Type").focus();
+                        //alert("Record Inserted Successfully !!!");
+                        //alert("Succesfully. 1");
+                        if(response["valid"])
+                        {   
+
+                            console.log("Edited") 
+                            // For hide the table
+                          
+                            $(table).hide();
+                            $(back).show();
+                            // For Show the form
+                            $(edit).show(); 
+                            $('.id1').val(response['id']);
+                            $('.id2').val(response['category']);
+                            $('.id3').val(response['type']);
+                            $('.id4').val(response['brand']);
+                            $('.id5').val(response['model']);
+                            $('.id6').val(response['color']);
+                            $('.id7').val(response['price']);
+                           
+                           
+                            CKEDITOR.instances.id8.setData( response['description'] );
+                            
+                            console.log(response['id'])
+
+
+                            return true;   
+                        }
+                    },
+                    error: function (response) 
+                    {
+                    
+                    }
+                }); 
+                  return true;
+
+}
+
+// For submit:
+function mybutton(){
+                    console.log("User wants to submit!");
+                   var num = document.getElementById("id1").value;
+                   var num1 = document.getElementById("id2").value;
+                   var num2 = document.getElementById("id3").value;
+                   var num3 = document.getElementById("id4").value;
+                   var num4 = document.getElementById("id5").value;
+                   var num5 = document.getElementById("id6").value;
+                   var num6 = document.getElementById("id7").value;
+                   var num7 = CKEDITOR.instances['id8'].getData();
+    
+      
+                    console.log(num7);
+                   
+
+                   $.ajax({
+                    type: 'GET',
+                    url: "{% url 'update_data' %}",
+                    data: {"id" : num,"id2":num1,"id3":num2,"id4":num3,"id5":num4,"id6":num5,"id7":num6,"id8":num7},
+                    success: function (response) {
+                        //$("#friend-form").trigger('reset'); 
+                        //$("#id_Type").focus();
+                        //alert("Record Inserted Successfully !!!");
+                        //alert("Succesfully. 1");
+                        if(response["valid"])
+                        {   
+
+                            console.log("Submitted") 
+                            // For hide the table
+                          
+                            
+                            $(back).hide();
+                            $(edit).hide(); 
+                            // For Show the form
+                        
+                            $(table).show();
+                          
+                            return true;   
+                        }
+                    },
+                    error: function (response) 
+                    {
+                    
+                    }
+                }); 
+                  return true;
+    
+}
+
+</script>
+
+{% endblock %}

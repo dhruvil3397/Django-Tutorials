@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}Welcome!!!{% endblock  %}
+
+
+
+
+{% block css %}
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+{% endblock  %}
+{% block body %}
+{% load static %}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
+<div class="container my-3">
+
+<div id = "back">
+<a href='/myapp/showback/' >Back</a>
+</div>
+
+  <h3>Add Your Products</h3>
+  
+  <form action="/myapp/showback/" method="post">
+    
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="name">Category</label>
+      <input type="text" class="form-control" id="category" name='category' placeholder="Enter Your category">
+    </div>
+
+    <div class="form-group">
+      <label for="name">Type</label>
+      <input type="text" class="form-control" id="type" name='type' placeholder="Enter Your type">
+    </div>
+
+     <div class="form-group">
+      <label for="name">Brand</label>
+      <input type="text" class="form-control" id="brand" name='brand' placeholder="Enter Your brand">
+    </div>
+
+     <div class="form-group">
+      <label for="name">Model</label>
+      <input type="text" class="form-control" id="model" name='model' placeholder="Enter Your model">
+    </div>
+
+     <div class="form-group">
+      <label for="name">Color</label>
+      <input type="text" class="form-control" id="color" name='color' placeholder="Enter Your color">
+    </div>
+
+     <div class="form-group">
+      <label for="name">Price</label>
+      <input type="text" class="form-control" id="price" name='price' placeholder="Enter Your price">
+    </div>
+
+    <div class="form-group">
+      <label for="message">Description</label>
+      
+      <textarea name = 'message' id="message" class="form-control" rows="3"></textarea>
+  <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+     
+</div>
+
+
+<script>
+    $(function () {
+        CKEDITOR.replace('message', {
+            toolbar: 'Basic'
+        });
+    });
+</script>
+{% endblock  %}

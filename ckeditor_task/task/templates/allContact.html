@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<h2>All Contact Table</h2>
+<h3><a href = "/task/home/">Home</a></h3>
+
+<table>
+  <tr>
+    <th>Sr No.</th>
+    <th>Name</th>
+    <th>Delete the data</th>
+  </tr>
+{% for i in allContact %}
+  <tr id="entry_{{forloop.counter}}">
+    <td>{{i.id}}</td>
+    <td><a href='/task/showdetails/{{i.id}}'>{{i.name}}</td>
+    <td><button onclick="myFunction({{i.id}}, {{forloop.counter}})" class="deletebtn">Delete</button></td>
+
+  </tr>
+ {% endfor %}
+</table>
+
+<script>
+function myFunction(e, f){
+    retVal = confirm('Are you sure for deleting this contact');
+    if( retVal == true ) {
+                   console.log("User wants to continue!");
+                   $.ajax({
+                    type: 'GET',
+                    url: "{% url 'delete_data' %}",
+                    data: {"id" : e},
+                    success: function (response) {
+                        //$("#friend-form").trigger('reset'); 
+                        //$("#id_Type").focus();
+                        //alert("Record Inserted Successfully !!!");
+                        //alert("Succesfully. 1");
+                        if(response["valid"])
+                        {
+                            console.log("deleted");
+                            $('#entry_'+f).remove();
+                            return true;   
+                        }
+                    },
+                    error: function (response) 
+                    {
+                    
+                    }
+                }); 
+                  return true;
+               } else {
+                  console.log("User does not want to continue!");
+                  return false;
+               }
+//document.location = "/task/show/";
+}
+</script>
+
+
+</body>
+</html>
+
+

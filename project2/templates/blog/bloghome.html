@@ -1,0 +1,42 @@
+{% extends 'base.html'%}
+{% block title %}BlogHome{% endblock %}
+{% block blogactive %} active {% endblock blogactive %}
+
+{% block JS %}
+
+{% endblock %}
+
+{% block body %}
+ 
+    <h1>Welcome to the blog!</h1>
+    <div class = "container">
+
+
+ <div class="row mb-2">
+    {% for post in allPost %}
+     
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary">By :{{post.author}}</strong>
+          <h3 class="mb-0 "><a class = "text-dark" href="/blog/{{post.slug}}">{{post.title}}</a></h3>
+          <div class="mb-1 text-muted mb-4">{{post.timestamp}}</div>
+          <p class="card-text mb-auto"><div class = "preview" >{{post.content|safe|truncatechars:250}}</div></p>
+          <a href="/blog/{{post.slug}}" class="stretched-link">Continue reading...</a>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+         <img src='/media/{{post.thumbnail}}'  alt="..."  class="bd-placeholder-img" width="220" height="260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" </svg>
+
+        </div>
+      </div>
+    </div>
+    {% if forloop.counter|divisibleby:2 %}
+
+  </div><div class="row mb-2">
+  {% endif %}
+
+  {% endfor %}
+</div>  
+
+
+{% endblock %}

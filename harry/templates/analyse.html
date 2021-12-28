@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang = "eng">
+<head>
+
+    <meta charset ="UTF-8">
+    <meta name = "viewpoint" content = "width=device-width,initial-scale = 1.0">
+    
+    <title>Student Registration</title>
+   
+</head>
+<body>
+    <h1><center>Welcome to the Analyser.Enter your text below</center></h1>
+     {%csrf_token%}
+    <form action ='/show' method = "post">
+        <textarea name = 'text' style="margin: 0px; width: 1476px; height: 104px;"></textarea>
+
+        <center><button type = "submit">Analyse text</button></center>
+    </form>
+</body>
+</html>

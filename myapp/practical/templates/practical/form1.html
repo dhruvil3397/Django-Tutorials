@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang = "eng">
+<head>
+
+    <meta charset ="UTF-8">
+    <meta name = "viewpoint" content = "width=device-width,initial-scale = 1.0">
+    <style>
+        body{
+            background-image: url("/static/R.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            }
+    </style>
+    
+    <title>Student Registration</title>
+   
+</head>
+<body>
+    <h1>Student Registration</h1>
+    
+     {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <h3><strong>Message :</strong> {{message}}</h3>
+    
+  </div>
+  {% endfor %}
+
+
+    <form method ="post"  enctype = "multipart/form-data">
+        {% csrf_token %}
+        <input type ="file" name = "myfile">   
+        
+        <button type ="submit">Upload</button>
+
+    </form>
+
+
+
+</body>
+</html>
+
